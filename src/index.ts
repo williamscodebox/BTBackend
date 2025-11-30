@@ -1,0 +1,31 @@
+import express from "express";
+import type { Request, Response } from "express"; // 👈 use `type` keyword
+import "dotenv/config";
+import cors from "cors";
+import authRoutes from "./routes/authRoutes";
+import bpStatRoutes from "./routes/bpStatRoutes";
+
+import { connectDB } from "./lib/db";
+
+const app = express();
+const PORT = process.env.PORT || 4000;
+
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+//job.start();
+app.use(cors());
+
+app.use("/api/auth", authRoutes);
+app.use("/api/bpStat", bpStatRoutes);
+
+// 👇 Define a root route
+app.get("/", (req: Request, res: Response) => {
+  res.send("Welcome to BT Health Backend!");
+});
+
+app.listen(PORT, () => {
+  console.log("Server is running on port " + PORT);
+  console.log(`Server is running on port ${PORT}`);
+  connectDB();
+});
