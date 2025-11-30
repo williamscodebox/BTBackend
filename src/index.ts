@@ -6,6 +6,7 @@ import authRoutes from "./routes/authRoutes";
 import bpStatRoutes from "./routes/bpStatRoutes";
 
 import { connectDB } from "./lib/db";
+import job from "./lib/cron";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -13,7 +14,7 @@ const PORT = process.env.PORT || 4000;
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-//job.start();
+job.start();
 app.use(cors());
 
 app.use("/api/auth", authRoutes);
